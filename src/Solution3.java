@@ -4,10 +4,7 @@
  * 2018/8/20 12:21
  */
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 3. 无重复字符的最长子串
@@ -82,31 +79,66 @@ public class Solution3 {
 //	}
 
 
-	/**
-	 * 高效的方法
-	 */
-	public int lengthOfLongestSubstring(String s) {
-		int ret = 0;
+    /**
+     * 高效的方法
+     */
+    public int lengthOfLongestSubstring(String s) {
+	int ret = 0;
 
-		Map<Character,Integer>map = new HashMap<>();
+	Map<Character, Integer> map = new HashMap<>();
 
-		for (int j = 0, i = 0 ; j<s.length() ; j++){
-			if (map.containsKey(s.charAt(j))){
-				i = Math.max(map.get(s.charAt(j)) , i);
-			}
-			ret = Math.max(ret , j-i+1);
-			map.put(s.charAt(j),j+1);
-		}
-		return ret;
-
+	for (int j = 0, i = 0; j < s.length(); j++) {
+	    if (map.containsKey(s.charAt(j))) {
+		i = Math.max(map.get(s.charAt(j)), i);
+	    }
+	    ret = Math.max(ret, j - i + 1);
+	    map.put(s.charAt(j), j + 1);
 	}
+	return ret;
 
-	public static void main(String args[]) {
-		Solution3 solution3 = new Solution3();
+    }
 
-		String str = "abcbde";
-		System.out.println(solution3.lengthOfLongestSubstring(str));
+    //滑动窗口 用set存是否出现过
+    public int lengthOfLongestSubstring2(String s) {
+	int ret = 0;
+	int p = 0, q = 0;
+	Set<Character> set = new HashSet<>();
+	while (q<s.length()){
+	    if (!set.contains(s.charAt(q))){
+	        set.add(s.charAt(q++));
+	        ret = Math.max(ret,q-p);
+	    }else {
+	        set.remove(s.charAt(p++));
+	    }
 	}
+	return ret;
+    }
+
+    //滑动窗口 用数组存放是否出现过
+    public int lengthOfLongestSubstring3(String s){
+        int ret = 0;
+        int p = 0;
+        int q = 0;
+        int[] freq = new int[128];
+
+        while (q<s.length()){
+            if (freq[s.charAt(q)]==0){
+                freq[s.charAt(q++)]++;
+                ret = Math.max(ret,q-p);
+	    }else {
+                freq[s.charAt(p++)]--;
+	    }
+	}
+        return ret;
+    }
+
+    public static void main(String args[]) {
+	Solution3 solution3 = new Solution3();
+
+	String str = "aabc";
+	System.out.println(solution3.lengthOfLongestSubstring3(str));
+
+    }
 
 
 }
