@@ -25,7 +25,7 @@ import java.util.Map;
  * 解释:
  * 两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]]
  */
-public class Soluition447 {
+public class Solution447 {
 
 	//解法1 暴力求解
 	public int numberOfBoomerangs(int[][] points) {
@@ -72,7 +72,7 @@ public class Soluition447 {
 
 	public static void main(String args[]) {
 		int[][] points = new int[][]{{0, 0}, {1, 0}, {2, 0}};
-		System.out.println(new Soluition447().numberOfBoomerangs2(points));
+		System.out.println(new Solution447().numberOfBoomerangs2(points));
 	}
 
 }
