@@ -74,6 +74,7 @@ public class ReConstructBinaryTree {
 		ReConstructBinaryTree reConstructBinaryTree = new ReConstructBinaryTree();
 		TreeNode treeNode = reConstructBinaryTree.reConstructBinaryTree(pre, in);
 		reConstructBinaryTree.printTree(treeNode);
+
 	}
 
 }

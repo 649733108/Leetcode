@@ -4,6 +4,9 @@
  * 2019/4/1 20:33
  */
 
+import utils.linkedlist.LinkedList;
+import utils.linkedlist.ListNode;
+
 import java.util.Stack;
 
 /**
@@ -52,23 +55,13 @@ public class Solution206 {
 		return node;
 	}
 
-	public static class ListNode {
-		int val;
-		ListNode next;
-
-		ListNode(int x) {
-			val = x;
-		}
-	}
 
 	public static void main(String args[]) {
-		ListNode h = new ListNode(1);
-		h.next = new ListNode(2);
-		h.next.next = new ListNode(3);
-		h.next.next.next = new ListNode(4);
-		h.next.next.next.next = new ListNode(5);
-
-		new Solution206().reverseList2(h);
+		int[] arr = {1, 2, 3, 4, 5};
+		ListNode listNode = LinkedList.create(arr);
+		LinkedList.print(listNode);
+		new Solution206().reverseList2(listNode);
+		LinkedList.print(listNode);
 	}
 
 }
