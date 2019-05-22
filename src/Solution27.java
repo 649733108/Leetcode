@@ -71,6 +71,8 @@ public class Solution27 {
 	int[] nums = {4,5};
 	int i = new Solution27().removeElement(nums, 5);
 	System.out.println(i);
+
+	    System.out.println("123");
     }
 
 

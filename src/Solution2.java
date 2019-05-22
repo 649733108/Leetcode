@@ -19,7 +19,7 @@
  */
 public class Solution2 {
 
-	public static class ListNode {
+	private static class ListNode {
 		int val;
 		ListNode next;
 

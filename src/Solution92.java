@@ -20,7 +20,7 @@
  */
 public class Solution92 {
 
-	public static class ListNode {
+	private static class ListNode {
 		int val;
 		ListNode next;
 
