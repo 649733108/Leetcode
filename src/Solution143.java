@@ -1,4 +1,8 @@
+import utils.linkedlist.LinkedList;
 import utils.linkedlist.ListNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wxn
@@ -22,8 +26,43 @@ import utils.linkedlist.ListNode;
 
 public class Solution143 {
 
+	//解法1 将链表拷贝到数组中,利用双指针实现
 	public void reorderList(ListNode head) {
 
-		//todo
+		if (head == null || head.next == null || head.next.next == null) {
+			return;
+		}
+		List<ListNode> list = new ArrayList<>();
+		ListNode cur = head;
+		while (cur != null) {
+			list.add(cur);
+			cur = cur.next;
+		}
+		int i = 0;
+		int j = list.size()-1;
+		ListNode dummy = new ListNode(-1);
+		dummy.next = head;
+		cur = dummy;
+		while (i<j){
+			cur.next = list.get(i);
+			cur = cur.next;
+			cur.next = list.get(j);
+			cur = cur.next;
+			i++;
+			j--;
+		}
+		if (i == j) {
+			cur.next = list.get(i);
+			cur = cur.next;
+		}
+		cur.next = null;
 	}
+
+	public static void main(String[] args) {
+		ListNode head = LinkedList.create(new int[]{1, 2, 3, 4,5});
+		LinkedList.print(head);
+		new Solution143().reorderList(head);
+		LinkedList.print(head);
+	}
+
 }
