@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -43,21 +44,33 @@ public class Solution341 {
 
 	public class NestedIterator implements Iterator<Integer> {
 
-		public NestedIterator(List<NestedInteger> nestedList) {
+		List<Integer> list = new ArrayList<>();
+		int index = 0;
 
+		public NestedIterator(List<NestedInteger> nestedList) {
+			init(nestedList);
+		}
+
+		private void init(List<NestedInteger> nestedList) {
+			for (NestedInteger nestedInteger : nestedList) {
+				if (nestedInteger.isInteger()) {
+					list.add(nestedInteger.getInteger());
+				}else {
+					init(nestedInteger.getList());
+				}
+			}
 		}
 
 		@Override
 		public Integer next() {
-			//todo
-			return null;
+			return list.get(index++);
 
 		}
 
 		@Override
 		public boolean hasNext() {
 
-			return false;
+			return index<list.size();
 		}
 	}
 }

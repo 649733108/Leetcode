@@ -6,13 +6,13 @@ import java.util.Stack;
 
 /**
  * Created by wxn
- * 2019/6/14 16:56
+ * 2019/6/19 9:00
  *
- * 144. 二叉树的前序遍历
+ * 145. 二叉树的后序遍历
  *
- * 给定一个二叉树，返回它的 前序 遍历。
+ * 给定一个二叉树，返回它的 后序 遍历。
  *
- *  示例:
+ * 示例:
  *
  * 输入: [1,null,2,3]
  *    1
@@ -21,33 +21,33 @@ import java.util.Stack;
  *     /
  *    3
  *
- * 输出: [1,2,3]
+ * 输出: [3,2,1]
  * 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
  */
 
 
-public class Solution144 {
+public class Solution145 {
 
 	//解法1 递归法
-	public List<Integer> preorderTraversal(TreeNode root) {
+	public List<Integer> postorderTraversal(TreeNode root) {
 
 		List<Integer> resultList = new ArrayList<>();
-		return preorderTraversal(root,resultList);
+		postorderTraversal(root,resultList);
+		return resultList;
 	}
 
-	private List<Integer> preorderTraversal(TreeNode root, List<Integer> resultList) {
-
-		if (root==null){
+	private List<Integer> postorderTraversal(TreeNode root, List<Integer> resultList) {
+		if (root == null) {
 			return resultList;
 		}
+		postorderTraversal(root.left,resultList);
+		postorderTraversal(root.right,resultList);
 		resultList.add(root.val);
-		preorderTraversal(root.left, resultList);
-		preorderTraversal(root.right, resultList);
 		return resultList;
 	}
 
 	//解法2 迭代法
-	public List<Integer> preorderTraversal2(TreeNode root){
+	public List<Integer> postorderTraversal2(TreeNode root){
 		Stack<State> stack = new Stack<>();
 		stack.push(new State("go", root));
 		List<Integer> resultList = new ArrayList<>();
@@ -55,9 +55,9 @@ public class Solution144 {
 		while (!stack.empty()) {
 			State state = stack.pop();
 			if (state.action.equals("go") && state.target!=null) {
+				stack.push(new State("add", state.target));
 				stack.push(new State("go", state.target.right));
 				stack.push(new State("go", state.target.left));
-				stack.push(new State("add", state.target));
 			} else if (state.action.equals("add") && state.target != null) {
 				resultList.add(state.target.val);
 			}
@@ -75,4 +75,5 @@ public class Solution144 {
 			this.target = target;
 		}
 	}
+
 }
