@@ -1,5 +1,6 @@
 import utils.tree.TreeNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,30 @@ import java.util.List;
 public class Solution113 {
 
 	public List<List<Integer>> pathSum(TreeNode root, int sum) {
-//TODO
-		return null;
+		List<List<Integer>> res = new ArrayList<>();
+		if (root == null) {
+			return res;
+		}
+		if (root.left == null && root.right == null) {
+			//root为叶子节点
+			if (root.val==sum){
+				List<Integer> list = new ArrayList<>();
+				list.add(root.val);
+				res.add(list);
+				return res;
+			}
+		}
+		//root不是叶子节点
+		List<List<Integer>> leftList = pathSum(root.left, sum - root.val);
+		List<List<Integer>> rightList = pathSum(root.right, sum - root.val);
+		for (List<Integer> list : leftList) {
+			list.add(0,root.val);
+			res.add(list);
+		}
+		for (List<Integer> list : rightList) {
+			list.add(0,root.val);
+			res.add(list);
+		}
+		return res;
 	}
 }
