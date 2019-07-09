@@ -28,7 +28,7 @@ public class Solution17 {
 	private ArrayList<String> res;
 
 	//用一个长度为10的桶装每个数字对应的字母
-	private String[] dictionary = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+	private final String[] dictionary = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
 
 	//回溯法
 	public List<String> letterCombinations(String digits) {
@@ -46,6 +46,7 @@ public class Solution17 {
 	}
 
 	private void findCombination(String digits , int index , String s){
+		System.out.println(index+" : " +s);
 		if (index==digits.length()){
 			res.add(s);
 			return;
@@ -54,12 +55,13 @@ public class Solution17 {
 		char c = digits.charAt(index);
 		String letters = dictionary[c-'0'];
 		for (int i = 0; i < letters.length(); i++) {
+			System.out.println("digits["+index+"] = "+c + " , use " + letters.charAt(i));
 			findCombination(digits, index+1, s+letters.charAt(i));
 		}
 	}
 
 	public static void main(String[] args) {
-		System.out.println(new Solution17().letterCombinations("22"));
+		System.out.println(new Solution17().letterCombinations("234"));
 	}
 
 }
