@@ -26,6 +26,7 @@ import java.util.Queue;
 
 public class Solution279 {
 
+	//解法1 BFS
 	public int numSquares(int n) {
 
 		Queue<Pair<Integer,Integer>>queue = new LinkedList<>();
@@ -52,11 +53,50 @@ public class Solution279 {
 				}
 			}
 		}
-
 		return 0;
-
 	}
 
+	//解法2 记忆搜索法
+	public int numSquares2(int n) {
+		//mem[i]表示组成i的平方数的个数
+		int[] mem = new int[n+1];
+		return numSquares2(n,mem);
+	}
+
+	private int numSquares2(int n, int[] mem) {
+		if (n==0)
+			return 0;
+		if (n==1)
+			return 1;
+		if (mem[n]==0){
+			int min = Integer.MAX_VALUE;
+			for (int i = 1;n-i*i>=0 ;i++){
+				min = Math.min(min, numSquares2(n-i*i, mem)+1);
+			}
+			mem[n] = min;
+		}
+		return mem[n];
+	}
+
+	//解法3 动态规划
+	public int numSquares3(int n){
+		//mem[i]表示组成i的平方数的个数
+		int[] mem = new int[n+1];
+		mem[0] = 0;
+		mem[1] = 1;
+		for (int i = 2; i <= n; i++) {
+			int min = Integer.MAX_VALUE;
+			for (int j = 1; i - j * j >= 0; j++) {
+				min = Math.min(min, mem[i-j*j]+1);
+			}
+			mem[i] = min;
+		}
+		return mem[n];
+	}
+
+	public static void main(String args[]) {
+		System.out.println(new Solution279().numSquares3(12));
+	}
 
 
 }
