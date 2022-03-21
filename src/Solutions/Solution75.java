@@ -21,65 +21,65 @@ package Solutions;
  */
 public class Solution75 {
 
-    //解法1. 计数排序
-    public void sortColors(int[] nums) {
-	int red = 0;
-	int white = 0;
-	int blue = 0;
-	for (int num : nums) {
-	    switch (num) {
-		case 0:
-		    red++;
-		    break;
-		case 1:
-		    white++;
-		    break;
-		case 2:
-		    blue++;
-		    break;
-	    }
+	//解法1. 计数排序
+	public void sortColors(int[] nums) {
+		int red = 0;
+		int white = 0;
+		int blue = 0;
+		for (int num : nums) {
+			switch (num) {
+				case 0:
+					red++;
+					break;
+				case 1:
+					white++;
+					break;
+				case 2:
+					blue++;
+					break;
+			}
+		}
+		for (int i = 0; i < nums.length; i++) {
+			if (red != 0) {
+				nums[i] = 0;
+				red--;
+			} else if (white != 0) {
+				nums[i] = 1;
+				white--;
+			} else {
+				nums[i] = 2;
+				blue--;
+			}
+		}
 	}
-	for (int i = 0; i < nums.length; i++) {
-	    if (red != 0) {
-		nums[i] = 0;
-		red--;
-	    } else if (white != 0) {
-		nums[i] = 1;
-		white--;
-	    } else {
-		nums[i] = 2;
-		blue--;
-	    }
+
+	//解法2. 利用三路快排
+	public void sortColors2(int[] nums) {
+		int zero = -1;    //nums[0...zero]=0
+		int two = nums.length;    //nums[two...nums.length-1]=2
+		for (int i = 0; i < two; ) {
+			if (nums[i] == 1) {
+				i++;
+			} else if (nums[i] == 0) {
+				zero++;
+				swap(nums, zero, i);
+				i++;
+			} else {
+				two--;
+				swap(nums, two, i);
+			}
+		}
 	}
-    }
 
-    //解法2. 利用三路快排
-    public void sortColors2(int[] nums) {
-	int zero = -1 ; 	//nums[0...zero]=0
-	int two = nums.length;	//nums[two...nums.length-1]=2
-	for (int i = 0 ; i<two ;){
-	    if (nums[i]==1){
-	        i++;
-	    }else if (nums[i]==0){
-	        zero++;
-		swap(nums,zero,i);
-		i++;
-	    }else {
-	        two--;
-	        swap(nums,two,i);
-	    }
+	private void swap(int[] nums, int i, int j) {
+		int temp = nums[i];
+		nums[i] = nums[j];
+		nums[j] = temp;
 	}
-    }
 
-    private void swap(int[] nums, int i, int j) {
-	int temp = nums[i];
-	nums[i] = nums[j];
-	nums[j] = temp;
-    }
-
-    public static void main(String args[]) {
-	int[] arr = {2,0,2,1,1,0};
-	new Solution75().sortColors2(arr);
-    }
+	public static void main(String args[]) {
+		int[] arr = {2, 0, 2, 1, 1, 0};
+		new Solution75().sortColors2(arr);
+	}
 
 }

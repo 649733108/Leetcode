@@ -74,8 +74,38 @@ public class Solution66 {
 		}
 	}
 
+	public int[] plusOne2(int[] digits) {
+		//处理全9的情况
+		if (isAllNine(digits)) {
+			int[] ret = new int[digits.length+1];
+			ret[0] = 1;
+			return ret;
+		}
+
+		int[] ret = new int[digits.length];
+		int jinwei = 1;
+		for (int i = digits.length - 1; i >= 0; i--) {
+			if (digits[i] + jinwei == 10) {
+				ret[i] = 0;
+			}else {
+				ret[i] = digits[i]+jinwei;
+				jinwei=0;
+			}
+		}
+		return ret;
+	}
+
+	private boolean isAllNine(int[] digits) {
+		for (int digit : digits) {
+			if (digit != 9) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public static void main(String[] args) {
-		System.out.println(Arrays.toString(new Solution66().plusOne(new int[]{1,9,9})));
+		System.out.println(Arrays.toString(new Solution66().plusOne2(new int[]{1,2,3})));
 	}
 
 }

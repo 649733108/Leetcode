@@ -36,7 +36,32 @@ package Solutions;
 
 public class Solution38 {
 
+	// 尝试用递归
 	public String countAndSay(int n) {
+
+		if (n == 1) {
+			return "1";
+		}
+		String s = countAndSay(n-1);
+		StringBuilder sb = new StringBuilder();
+		char curChar = s.charAt(0);
+		int curNum = 1;
+		for (int i = 1; i < s.length(); i++) {
+			if (s.charAt(i) == curChar) {
+				curNum++;
+			}else {
+				sb.append(curNum).append(curChar);
+				curChar = s.charAt(i);
+				curNum = 1;
+			}
+		}
+		sb.append(curNum).append(curChar);
+		return sb.toString();
+	}
+
+
+
+	public String countAndSay2(int n) {
 
 		if (n == 1) {
 			return "1";
